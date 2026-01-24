@@ -27,7 +27,7 @@ public class UserService {
         List<User> existingUsers = userRepository.getAll();
         for (User u : existingUsers) {
             if (u.getEmail().equalsIgnoreCase(user.getEmail())) {
-                throw new DuplicateResourceException("Business Rule Violated: Email " + user.getEmail() + " taken");
+                throw new DuplicateResourceException("Business rule broken: Email " + user.getEmail() + " taken");
             }
         }
 

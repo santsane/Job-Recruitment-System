@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static final String URL = "jdbc:postgresql://localhost:5432/job_rec_system";
     private static final String USER = "postgres";
-    private static final String PASS = "your_pgadmin_password";
+    private static final String PASS = "123654As";
 
     public static Connection getConnection() throws SQLException {
         try {
@@ -17,3 +17,4 @@ public class DatabaseConnection {
             throw new SQLException("PostgreSQL JDBC Driver not found", e);
         }
     }
+}
