@@ -1,3 +1,7 @@
+-- Remove old tables to start again
+DROP TABLE IF EXISTS jobs;
+DROP TABLE IF EXISTS users;
+
 -- Users Table
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
