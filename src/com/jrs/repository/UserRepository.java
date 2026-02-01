@@ -1,25 +1,26 @@
 package com.jrs.repository;
 
 import com.jrs.model.*;
+import com.jrs.repository.interfaces.CrudRepository;
 import com.jrs.util.DatabaseConnection;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepository {
+public class UserRepository implements CrudRepository<User> {
 
-    // Create(entity)
+    @Override
     public void create(User user) throws SQLException {
         String sql = "INSERT INTO users (name, email, role, additional_info) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) { // Requirement: PreparedStatement
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, user.getRole());
 
-            // Handle subclass data
             if (user instanceof Recruiter) {
                 pstmt.setString(4, ((Recruiter) user).getCompanyName());
             } else if (user instanceof Candidate) {
@@ -30,14 +31,14 @@ public class UserRepository {
         }
     }
 
-    // getAll()
+    @Override
     public List<User> getAll() throws SQLException {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM users";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) { // Requirement: ResultSet
+             ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -56,7 +57,7 @@ public class UserRepository {
         return users;
     }
 
-    // delete(id)
+    @Override
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM users WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
