@@ -13,5 +13,11 @@ public class Recruiter extends User {
         return "RECRUITER";
     }
 
+    // 2nd abstract method
+    @Override
+    public String getPermissions() {
+        return "POST_JOBS, VIEW_APPLICANTS, MANAGE_COMPANY";
+    }
+
     public String getCompanyName() { return companyName; }
 }

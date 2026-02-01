@@ -13,5 +13,11 @@ public class Candidate extends User {
         return "CANDIDATE";
     }
 
+    // 2nd abstract method
+    @Override
+    public String getPermissions() {
+        return "VIEW_JOBS, APPLY_TO_JOBS, UPDATE_PROFILE";
+    }
+
     public String getResumeLink() { return resumeLink; }
 }

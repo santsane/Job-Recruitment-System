@@ -1,6 +1,8 @@
 package com.jrs.model;
 
-public abstract class User {
+import com.jrs.interfaces.Validatable;
+
+public abstract class User implements Validatable {
     protected int id;
     protected String name;
     protected String email;
@@ -11,17 +13,24 @@ public abstract class User {
         this.email = email;
     }
 
-    // Abstract method
+    // Abstract methods, polymorphism
     public abstract String getRole();
+    public abstract String getPermissions(); // ADDED THIS
 
     // Concrete method
     public void displayInfo() {
-        System.out.println("ID: " + id + " | " + name + " (" + email + ")");
+        System.out.println("ID: " + id + " | Name: " + name + " | Role: " + getRole());
     }
 
-    // Getters and Setters
+    // validatable interface
+    @Override
+    public boolean isValid() {
+        // Static method from validatable interface
+        return name != null && !name.isEmpty() && Validatable.isEmailValid(email);
+    }
+
+    // Getters
     public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
     public String getName() { return name; }
     public String getEmail() { return email; }
 }
